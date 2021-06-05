@@ -10,6 +10,7 @@ const port = 3000;
 
 // MIDDLEWARE
 // body parser middleware
+//Chris test note
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 // static files middleware
