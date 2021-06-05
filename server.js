@@ -16,7 +16,7 @@ app.use(express.json());
 app.use(express.static('public'))
 
 
-// CONTROLLERS
+//  CONTROLLERS
 // fitting room three
 const roomController = require('./controllers/room.js');
 app.use('/room', roomController);
