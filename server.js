@@ -12,19 +12,29 @@ const port = 3000;
 // body parser middleware
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
+app.use(methodOverride('_method'))
 // static files middleware
 app.use(express.static('public'))
+app.use(session({
+  secret: "testingthis", //some random string
+  resave: false,
+  saveUninitialized: false
+}));
 
 
 //  CONTROLLERS
 // fitting room three
 const roomController = require('./controllers/room.js');
 app.use('/room', roomController);
+//new user
+const sessionsController = require('./controllers/sessions.js');
+app.use('/sessions', sessionsController);
 
 
 // GET INDEX
 app.get('/', (req, res) => {
   res.render('index.ejs', {});
+  console.log(session)
 });
 
 
