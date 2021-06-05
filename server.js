@@ -26,11 +26,15 @@ app.use(session({
 // fitting room three
 const roomController = require('./controllers/room.js');
 app.use('/room', roomController);
+//new user
+const sessionsController = require('./controllers/sessions.js');
+app.use('/sessions', sessionsController);
 
 
 // GET INDEX
 app.get('/', (req, res) => {
   res.render('index.ejs', {});
+  console.log(session)
 });
 
 
