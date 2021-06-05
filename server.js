@@ -12,8 +12,14 @@ const port = 3000;
 // body parser middleware
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
+app.use(methodOverride('_method'))
 // static files middleware
 app.use(express.static('public'))
+app.use(session({
+  secret: "testingthis", //some random string
+  resave: false,
+  saveUninitialized: false
+}));
 
 
 // CONTROLLERS
