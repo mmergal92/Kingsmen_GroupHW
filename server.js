@@ -5,14 +5,11 @@ const mongoose = require('mongoose');
 const session = require('express-session');
 const methodOverride = require('method-override');
 const bcrypt = require('bcrypt');
-const Users = require('./models/users.js');
-
 const port = 3000;
 
 
 // MIDDLEWARE
 // body parser middleware
-//Chris test note
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(methodOverride('_method'))
@@ -24,32 +21,28 @@ app.use(session({
   saveUninitialized: false
 }));
 
-
-//  CONTROLLERS
+// CONTROLLERS
 // fitting room three
 const roomController = require('./controllers/room.js');
 app.use('/room', roomController);
-//new user
-const sessionsController = require('./controllers/sessions.js');
-app.use('/sessions', sessionsController);
-
-// Users Controller
-const usersController = require('./controllers/users.js');
-app.use('/users', usersController);
-
+// create new users
+const userController = require('./controllers/users.js');
+app.use('/users', userController);
+// new sessions
+const sessionController = require('./controllers/sessions.js');
+app.use('/sessions', sessionController);
 
 
 // GET INDEX
 app.get('/', (req, res) => {
   res.render('index.ejs', {});
-  console.log(session)
 });
 
 
 // SEED ROUTE
 // NOTE: Do NOT run this route until AFTER you have a create user route up and running, as well as encryption working!
 const seed = require('./models/seed.js');
-// const User = require('./models/users.js');
+const User = require('./models/users.js');
 
 app.get('/seedAgents', (req, res) => {
   // encrypts the given seed passwords
