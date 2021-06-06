@@ -5,11 +5,14 @@ const mongoose = require('mongoose');
 const session = require('express-session');
 const methodOverride = require('method-override');
 const bcrypt = require('bcrypt');
+const Users = require('./models/users.js');
+
 const port = 3000;
 
 
 // MIDDLEWARE
 // body parser middleware
+//Chris test note
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(methodOverride('_method'))
@@ -29,6 +32,11 @@ app.use('/room', roomController);
 //new user
 const sessionsController = require('./controllers/sessions.js');
 app.use('/sessions', sessionsController);
+
+// Users Controller
+const usersController = require('./controllers/users.js');
+app.use('/users', usersController);
+
 
 
 // GET INDEX
