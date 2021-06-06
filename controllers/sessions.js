@@ -11,19 +11,24 @@ router.get('/new', (req,res) =>{
 })
 
 router.post('/', (req,res)=>{
-    
+    console.log(req.sessionID)
     
     User.find({"username": req.body.username}, (error, foundUser)=>{
-        console.log(foundUser[0].password);
-        console.log(req.body);
+        console.log(req.sessionID)
         const result = bcrypt.compareSync(`${req.body.password}`,`${foundUser[0].password}`)
         if (result) {
+            User.findOneAndUpdate(foundUser, req.sessionID, function (err, user) {
+                if (err) return res.send(500, {error: err});
+                return res.redirect('/room')
+            })
+            // console.log(req.sessionID)
             
-            res.redirect('/room')
+            // res.redirect('/room')
+
         } else {
             res.redirect('/sessions/new')
         }
-        console.log(req.sessionID == true, req.session == true)
+        console.log(req.sessionID)
     })
     //     console.log(foundUser[0].password, req.body.password,)
     //     if (req.body.password === User.password){
@@ -42,6 +47,7 @@ router.get('/logout', (req, res)=>{
         if (err){
             console.log("could not log out")
         } else{
+            console.log(req.session, req.sessionID)
             console.log("Log out successful")
             res.redirect('/')
         }

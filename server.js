@@ -6,6 +6,7 @@ const session = require('express-session');
 const methodOverride = require('method-override');
 const bcrypt = require('bcrypt');
 const port = 3000;
+const filestore = require("session-file-store")(session)
 
 
 // MIDDLEWARE
@@ -16,9 +17,12 @@ app.use(methodOverride('_method'))
 // static files middleware
 app.use(express.static('public'))
 app.use(session({
+  name: "session-id",
+  cookie: { maxAge: 60000, secure: true, httpOnly: true },
   secret: "testingthis", //some random string
   resave: false,
-  saveUninitialized: false
+  saveUninitialized: false,
+  store: new filestore()
 }));
 
 // CONTROLLERS
