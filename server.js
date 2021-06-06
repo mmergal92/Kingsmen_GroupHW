@@ -5,6 +5,8 @@ const mongoose = require('mongoose');
 const session = require('express-session');
 const methodOverride = require('method-override');
 const bcrypt = require('bcrypt');
+const Users = require('./models/users.js');
+
 const port = 3000;
 
 
@@ -21,6 +23,11 @@ app.use(express.static('public'))
 // fitting room three
 const roomController = require('./controllers/room.js');
 app.use('/room', roomController);
+
+// Users Controller
+const usersController = require('./controllers/users.js');
+app.use('/users', usersController);
+
 
 
 // GET INDEX
