@@ -6,6 +6,7 @@ const User = require('../models/users.js');
 // ROUTES
 // get index
 router.get('/', (req, res) => {
+  console.log(req.sessionID)
   // finds all users
   User.find({}, (err, foundUsers) => {
     // renders the room page
