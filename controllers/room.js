@@ -1,19 +1,26 @@
 // DEPENDENCIES
 const express = require('express');
 const router = express.Router();
-// const User = require('../models/users.js');
+const User = require('../models/users.js');
 
 // ROUTES
 // get index
 router.get('/', (req, res) => {
-  // finds all users
-  User.find({}, (err, foundUsers) => {
-    // renders the room page
-    res.render('room/index.ejs', {
-      // passes the found users to the room page
-      users: foundUsers
+  if(req.session.currentUser){
+    User.find({}, (err, foundUsers) => {
+      // renders the room page
+      res.render('room/index.ejs', {
+        // passes the found users to the room page
+        users: foundUsers
+      });
     });
-  });
+  } else {
+    res.send('Please Login, nice try')
+  }
+  console.log(req.session.test)
+  console.log(req.session.currentUser, 'hi')
+  // finds all users
+  
 });
 
 // post a new message
