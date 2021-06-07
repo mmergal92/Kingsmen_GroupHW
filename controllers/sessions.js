@@ -14,17 +14,14 @@ router.post('/', (req,res)=>{
     console.log(req.sessionID)
     
     User.find({"username": req.body.username}, (error, foundUser)=>{
+
         console.log(req.sessionID)
         const result = bcrypt.compareSync(`${req.body.password}`,`${foundUser[0].password}`)
         if (result) {
-            User.findOneAndUpdate(foundUser, req.sessionID, function (err, user) {
-                if (err) return res.send(500, {error: err});
+           
+                req.session.currentUser = foundUser;
                 return res.redirect('/room')
-            })
-            // console.log(req.sessionID)
-            
-            // res.redirect('/room')
-
+                
         } else {
             res.redirect('/sessions/new')
         }
