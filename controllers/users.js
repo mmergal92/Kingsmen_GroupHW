@@ -8,7 +8,7 @@ const bcrypt = require('bcrypt');
 //CREATE NEW USER
 router.get('/new', (req, res) => {
     console.log(req.sessionID)
-    if(req.sessionID == true){
+    if(req.sessionID){
         res.render('users/new.ejs')}
         else{
             console.log(req.sessionID)
